@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Latvijai 108 – vērtību kanons</title>
+<meta name="description" content="108 simboli, notikumi, personas un artefakti Latvijas 108. dzimšanas dienai četrās kategorijās: atbildība, cieņa, patriotisms, sadarbība.">
+<style>
+  :root{
+    --carmine:#9e3039;
+    --carmine-dark:#7a2029;
+    --cream:#fbf7f2;
+    --paper:#ffffff;
+    --ink:#2a1618;
+    --muted:#6e5f60;
+    --line:#eadfd8;
+    --a:#9e3039;   /* atbildība */
+    --c:#2f6b5a;   /* cieņa */
+    --p:#b8862b;   /* patriotisms */
+    --s:#2b5d8a;   /* sadarbība */
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:Georgia,"Times New Roman",serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.55;
+  }
+  h1,h2,h3,.sans{font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  a{color:inherit}
+
+  /* ---------- Karoga josla ---------- */
+  .flagbar{height:14px;background:linear-gradient(to bottom,var(--carmine) 0 40%,#fff 40% 60%,var(--carmine) 60% 100%)}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    background:var(--carmine);
+    color:#fff;
+    text-align:center;
+    padding:72px 20px 56px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before,.hero::after{
+    content:"";position:absolute;left:0;right:0;height:10px;
+    background:repeating-linear-gradient(90deg,#fff 0 14px,transparent 14px 28px);
+    opacity:.25;
+  }
+  .hero::before{top:18px}
+  .hero::after{bottom:18px}
+  .hero .kicker{
+    letter-spacing:.28em;text-transform:uppercase;font-size:.85rem;opacity:.85;margin:0 0 10px;
+  }
+  .hero .big{
+    font-family:Georgia,serif;
+    font-size:clamp(6rem,24vw,13rem);
+    line-height:.9;font-weight:700;margin:0;
+    text-shadow:0 4px 0 rgba(0,0,0,.15);
+  }
+  .hero h1{
+    margin:10px 0 6px;font-size:clamp(1.5rem,4.2vw,2.6rem);font-weight:600;
+  }
+  .hero p.lead{
+    max-width:720px;margin:14px auto 0;font-size:1.1rem;opacity:.95;
+  }
+  .countdown{
+    display:inline-block;margin-top:26px;padding:10px 22px;
+    border:2px solid rgba(255,255,255,.7);border-radius:999px;
+    font-family:"Segoe UI",Roboto,Arial,sans-serif;font-size:1rem;
+  }
+  .countdown strong{font-size:1.25rem}
+
+  /* ---------- Kategoriju kartes ---------- */
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+  .pillars{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:16px;margin:-34px auto 0;position:relative;z-index:2;
+  }
+  .pillar{
+    background:var(--paper);border-radius:var(--radius);padding:18px 18px 16px;
+    box-shadow:0 8px 24px rgba(60,20,25,.12);
+    border-top:6px solid var(--clr);
+    cursor:pointer;transition:transform .15s,box-shadow .15s;
+    text-align:left;border-left:0;border-right:0;border-bottom:0;font:inherit;color:inherit;
+  }
+  .pillar:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(60,20,25,.18)}
+  .pillar h3{margin:0 0 4px;font-size:1.25rem;color:var(--clr)}
+  .pillar p{margin:0;font-size:.95rem;color:var(--muted)}
+  .pillar .n{font-family:"Segoe UI",Arial,sans-serif;font-weight:700;font-size:.8rem;color:var(--clr);letter-spacing:.1em}
+  .pillar[data-cat="a"]{--clr:var(--a)}
+  .pillar[data-cat="c"]{--clr:var(--c)}
+  .pillar[data-cat="p"]{--clr:var(--p)}
+  .pillar[data-cat="s"]{--clr:var(--s)}
+
+  /* ---------- Intro ---------- */
+  .intro{max-width:780px;margin:54px auto 10px;text-align:center;font-size:1.12rem}
+  .intro h2{font-size:1.9rem;margin:0 0 10px;color:var(--carmine-dark)}
+
+  /* ---------- Vadība ---------- */
+  .controls{
+    position:sticky;top:0;z-index:10;background:rgba(251,247,242,.96);
+    backdrop-filter:blur(6px);
+    padding:14px 0;margin-top:24px;border-bottom:1px solid var(--line);
+  }
+  .controls .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center}
+  .chip{
+    font-family:"Segoe UI",Roboto,Arial,sans-serif;font-size:.92rem;
+    border:2px solid var(--clr,var(--carmine));color:var(--clr,var(--carmine));
+    background:#fff;border-radius:999px;padding:6px 14px;cursor:pointer;
+    transition:all .12s;
+  }
+  .chip[aria-pressed="true"]{background:var(--clr,var(--carmine));color:#fff}
+  .chip[data-cat="a"]{--clr:var(--a)}
+  .chip[data-cat="c"]{--clr:var(--c)}
+  .chip[data-cat="p"]{--clr:var(--p)}
+  .chip[data-cat="s"]{--clr:var(--s)}
+  .search{
+    flex:1 1 220px;max-width:320px;padding:8px 14px;border-radius:999px;
+    border:2px solid var(--line);font:inherit;font-family:"Segoe UI",Arial,sans-serif;font-size:.95rem;background:#fff;
+  }
+  .search:focus{outline:none;border-color:var(--carmine)}
+  .rand{
+    font-family:"Segoe UI",Arial,sans-serif;font-size:.92rem;border:0;background:var(--carmine);
+    color:#fff;border-radius:999px;padding:8px 16px;cursor:pointer;
+  }
+  .rand:hover{background:var(--carmine-dark)}
+  .count{text-align:center;font-family:"Segoe UI",Arial,sans-serif;color:var(--muted);font-size:.9rem;margin:14px 0 0}
+
+  /* ---------- Režģis ---------- */
+  .grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));
+    gap:16px;margin:22px 0 60px;
+  }
+  .card{
+    background:var(--paper);border-radius:var(--radius);
+    padding:16px 18px 18px;border:1px solid var(--line);
+    border-left:6px solid var(--clr);
+    position:relative;transition:transform .15s,box-shadow .15s;
+    box-shadow:0 2px 6px rgba(60,20,25,.05);
+  }
+  .card:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(60,20,25,.12)}
+  .card.flash{animation:flash 1.8s ease}
+  @keyframes flash{0%,100%{box-shadow:0 2px 6px rgba(60,20,25,.05)}20%,60%{box-shadow:0 0 0 5px rgba(158,48,57,.35)}}
+  .card[data-cat="a"]{--clr:var(--a)}
+  .card[data-cat="c"]{--clr:var(--c)}
+  .card[data-cat="p"]{--clr:var(--p)}
+  .card[data-cat="s"]{--clr:var(--s)}
+  .card .top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+  .card .num{
+    font-family:"Segoe UI",Arial,sans-serif;font-weight:800;font-size:1.5rem;color:var(--clr);line-height:1;
+  }
+  .card .year{font-family:"Segoe UI",Arial,sans-serif;font-size:.8rem;color:var(--muted);text-align:right}
+  .card h3{margin:8px 0 4px;font-size:1.1rem;line-height:1.25}
+  .card .type{
+    display:inline-block;font-family:"Segoe UI",Arial,sans-serif;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--clr);border:1px solid var(--clr);border-radius:999px;padding:1px 9px;margin-bottom:8px;
+  }
+  .card p{margin:0;font-size:.97rem;color:#43302f}
+  .empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:40px 0;font-family:"Segoe UI",Arial,sans-serif}
+
+  /* ---------- Kājene ---------- */
+  footer{
+    background:var(--carmine-dark);color:#fff;text-align:center;padding:40px 20px 34px;
+    font-family:"Segoe UI",Arial,sans-serif;
+  }
+  footer p{max-width:760px;margin:6px auto;opacity:.92;font-size:.95rem}
+  footer .motto{font-family:Georgia,serif;font-size:1.4rem;margin-bottom:10px}
+
+  @media (max-width:520px){
+    .hero{padding-top:60px}
+    .pillars{margin-top:-24px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  }
+</style>
+</head>
+<body>
+
+<div class="flagbar" aria-hidden="true"></div>
+
+<header class="hero">
+  <p class="kicker">18. novembris 2026</p>
+  <p class="big" aria-hidden="true">108</p>
+  <h1>Latvijai 108 – kas mūs vieno</h1>
+  <p class="lead">108 simboli, notikumi, personas, vietas un artefakti, kas stāsta par Latviju četros vērtību virzienos: atbildība, cieņa, patriotisms un sadarbība.</p>
+</header>
+
+<main class="wrap">
+
+  <section class="pillars" aria-label="Kategorijas">
+    <button class="pillar" data-cat="a" type="button">
+      <span class="n">27 ieraksti</span>
+      <h3>Atbildība</h3>
+      <p>Par valsti, likumu, atmiņu, dabu un nākamajām paaudzēm.</p>
+    </button>
+    <button class="pillar" data-cat="c" type="button">
+      <span class="n">27 ieraksti</span>
+      <h3>Cieņa</h3>
+      <p>Pret cilvēkiem, pagātni, valodu, kultūru un dabu.</p>
+    </button>
+    <button class="pillar" data-cat="p" type="button">
+      <span class="n">27 ieraksti</span>
+      <h3>Patriotisms</h3>
+      <p>Mīlestība pret dzimteni, tās simboliem un sasniegumiem.</p>
+    </button>
+    <button class="pillar" data-cat="s" type="button">
+      <span class="n">27 ieraksti</span>
+      <h3>Sadarbība</h3>
+      <p>Kopā paveiktais – no Tautas padomes līdz Baltijas ceļam.</p>
+    </button>
+  </section>
+
+  <section class="intro">
+    <h2>Mūsu kopīgais kanons</h2>
+    <p>Latvijas valsts proklamēta 1918. gada 18. novembrī. Šī lapa, iedvesmojoties no kultūras kanona ideju, apkopo 108 vērtības – gan vēsturiskas, gan mūsdienīgas. Izvēle ir subjektīva un domāta kā pamudinājums sarunai: kas jūsuprāt vēl būtu jāiekļauj?</p>
+  </section>
+
+  <div class="controls">
+    <div class="row">
+      <button class="chip" data-filter="all" aria-pressed="true" type="button">Visi 108</button>
+      <button class="chip" data-filter="a" data-cat="a" aria-pressed="false" type="button">Atbildība</button>
+      <button class="chip" data-filter="c" data-cat="c" aria-pressed="false" type="button">Cieņa</button>
+      <button class="chip" data-filter="p" data-cat="p" aria-pressed="false" type="button">Patriotisms</button>
+      <button class="chip" data-filter="s" data-cat="s" aria-pressed="false" type="button">Sadarbība</button>
+      <input class="search" id="search" type="search" placeholder="Meklēt (piem., Rainis, 1991, dziesma)…" aria-label="Meklēt ierakstos">
+      <button class="rand" id="rand" type="button">🎲 Nejauša vērtība</button>
+    </div>
+    <p class="count" id="count"></p>
+  </div>
+
+  <section class="grid" id="grid" aria-live="polite"></section>
+</main>
+
+<footer>
+  <p class="motto">Dievs, svētī Latviju!</p>
+  <p>Daudz laimes dzimšanas dienā, Latvija! 1918 – 2026</p>
+  <p>Saturs apkopots izglītojošiem nolūkiem; gadskaitļi un fakti ir īsi kopsavilkumi, tāpēc padziļinātai izpētei lūdzam izmantot vēstures avotus un muzeju materiālus.</p>
+</footer>
+
+<script>
+/* [kategorija, veids, gads, nosaukums, apraksts]
+   a = atbildība, c = cieņa, p = patriotisms, s = sadarbība */
+const ITEMS = [
+/* ============ ATBILDĪBA ============ */
+["a","Dokuments","1922","Latvijas Satversme","Valsts pamatlikums, kas spēkā no 1922. gada 7. novembra un nosaka, kā darbojas Latvijas demokrātija."],
+["a","Notikums","1920–1922","Satversmes sapulce","Pirmā demokrātiski ievēlētā sapulce, kas izstrādāja un 1922. gada 15. februārī pieņēma Satversmi."],
+["a","Persona","1859–1927","Jānis Čakste","Tiesību zinātnieks, Tautas padomes priekšsēdētājs un pirmais Latvijas Valsts prezidents (1922–1927)."],
+["a","Institūcija","1922","Saeima","100 deputātu parlaments, kurā tauta uztic savu balsi ievēlētajiem pārstāvjiem; pirmā Saeima sanāca 1922. gadā."],
+["a","Artefakts","1922","Lats","Nacionālā valūta, kas simbolizēja stabilu valsti; atjaunots 1993. gadā un 2014. gadā nomainīts pret eiro."],
+["a","Notikums","1920","Agrārā reforma","Muižu zemes sadalīšana, kas deva zemi tūkstošiem lauksaimnieku un nostiprināja jauno valsti."],
+["a","Institūcija","1919","Latvijas Universitāte","Dibināta 1919. gadā kā Latvijas Augstskola – pamats augstākajai izglītībai un zinātnei brīvajā Latvijā."],
+["a","Institūcija","1919","Latvijas Sarkanais Krusts","Humānās palīdzības organizācija, kas jau no valsts pirmsākumiem palīdz cilvēkiem nelaimē."],
+["a","Persona","1882–1919","Oskars Kalpaks","Latviešu atsevišķā bataljona komandieris, kurš gāja bojā Brīvības cīņās 1919. gada 6. martā."],
+["a","Apbalvojums","1919","Lāčplēša Kara ordenis","Augstākais Brīvības cīņu militārais apbalvojums, ko saņēma vairāk nekā 2000 karotāju."],
+["a","Notikums","1943","Latvijas Centrālā Padome","Pretošanās kustības apvienība, kas okupācijas apstākļos aizstāvēja Latvijas valstiskuma ideju."],
+["a","Dokuments","1990","4. maija Neatkarības deklarācija","Augstākās padomes deklarācija par Latvijas Republikas neatkarības atjaunošanu."],
+["a","Dokuments","1991","Konstitucionālais likums par valstisko statusu","1991. gada 21. augustā pieņemtais likums, kas pasludināja Latvijas pilnīgu neatkarību."],
+["a","Institūcija","1993","Latvijas Okupācijas muzejs","Saglabā atmiņu par okupācijas gadiem un mācās no vēstures, lai tā neatkārtotos."],
+["a","Institūcija","1996","Satversmes tiesa","Nodrošina, ka likumi atbilst Satversmei, un sargā tiesiskumu valstī."],
+["a","Notikums","2004","Iestāšanās NATO","Latvija 2004. gada 29. martā kļuva par Ziemeļatlantijas alianses dalībvalsti un uzņēmās kopīgu drošības atbildību."],
+["a","Notikums","2014","Pāreja uz eiro","Kopš 2014. gada 1. janvāra Latvijā kā valūtu lieto eiro."],
+["a","Persona","1900–1987","Žanis Lipke","Ostas strādnieks, kurš nacistu okupācijas laikā palīdzēja glābt ap 50 ebreju."],
+["a","Institūcija","","Zemessardze","Brīvprātīgā valsts aizsardzības spēku daļa, kurā iedzīvotāji uzņemas atbildību par valsts drošību."],
+["a","Dokuments","1999","Valsts valodas likums","Nostiprina latviešu valodu kā vienīgo valsts valodu un tās lietošanu valsts dzīvē."],
+["a","Dokuments","2014","Satversmes ievads (preambula)","Satversmē ierakstītas Latvijas tautas pamatvērtības un atbildība pret nākamajām paaudzēm."],
+["a","Objekts","1939","Ķeguma hidroelektrostacija","Pirmā Daugavas hidroelektrostacija, kas stiprināja valsts enerģētisko patstāvību."],
+["a","Vieta","1973","Gaujas Nacionālais parks","Latvijas pirmais nacionālais parks, kas rūpējas par dabas un kultūras mantojuma saglabāšanu."],
+["a","Vieta","1921","Slīteres rezervāts","Viens no vecākajiem aizsargājamo dabas teritoriju piemēriem Latvijā."],
+["a","Notikums","kopš 2022","Ukrainas atbalsts","Latvijas iedzīvotāji un valsts sniedz humāno un militāro palīdzību Ukrainai, uzņem bēgļus un ziedo."],
+["a","Persona","1896–1958","Pauls Stradiņš","Ķirurgs, profesors un Medicīnas vēstures muzeja dibinātājs (1957); viņa vārdā nosaukta universitāte."],
+["a","Institūcija","2023","Valsts aizsardzības dienests","Atjaunotais dienests apliecina jauniešu līdzatbildību par valsts drošību."],
+
+/* ============ CIEŅA ============ */
+["c","Vieta","1924","Brāļu kapi","Rīgas piemiņas vieta Brīvības cīņās kritušajiem karavīriem; arhitekta Kārļa Zāles darbs, atklāts 1924. gadā."],
+["c","Notikums","1941","14. jūnija deportācijas","Komunistiskā genocīda upuru piemiņas diena; 1941. gadā izsūtīti vairāk nekā 15 000 cilvēku."],
+["c","Notikums","1949","25. marta deportācijas","Aptuveni 42 000 cilvēku izsūtīšana no Latvijas; pavasara piemiņas diena, kad godinām izsūtītos."],
+["c","Vieta","1941","Rumbulas mežs","Holokausta upuru piemiņas vieta, kur 1941. gada novembrī un decembrī nogalināti ap 25 000 ebreju."],
+["c","Persona","1937–","Vaira Vīķe-Freiberga","Latvijas pirmā sieviete Valsts prezidenta amatā (1999–2007), kas popularizēja Latviju pasaulē."],
+["c","Persona","1865–1929","Rainis","Dzejnieks un dramaturgs, autors lugai „Uguns un nakts” (1905); izglītības ministrs 1926.–1928. gadā."],
+["c","Persona","1865–1943","Aspazija","Dzejniece un dramaturģe, viena no latviešu sieviešu emancipācijas un kultūras balsīm."],
+["c","Artefakts","2001","Dainu skapis","Krišjāņa Barona dainu krājums, UNESCO programmas „Pasaules atmiņa” vērtība."],
+["c","Persona","1835–1923","Krišjānis Barons","Folklorists, kurš sakārtoja un publicēja tautasdziesmu krājumu „Latvju dainas” (1894–1915)."],
+["c","Persona","1863–1908","Rūdolfs Blaumanis","Rakstnieks, kas ar „Indrāniem” un „Skroderdienām Silmačos” tuvināja latviešu laukus un raksturus."],
+["c","Persona","1861–1933","Anna Brigadere","Rakstniece, autore pasaku lugai „Sprīdītis” (1903), kas mīlēta jau vairākām paaudzēm."],
+["c","Persona","1933–2013","Imants Ziedonis","Dzejnieks un vārda meistars, kas aicināja skatīties uz Latvijas dabu un cilvēku ar pieklājību un siltumu."],
+["c","Persona","1901–1950","Aleksandrs Čaks","Dzejnieks, kas apdziedāja Rīgu un strēlniekus; darbs „Mūžības skartie”."],
+["c","Vieta","","Rīgas jūgendstils","Viens no bagātākajiem jūgendstila arhitektūras ansambļiem pasaulē; skaistums, ko sargājam."],
+["c","Vieta","1997","Rīgas vēsturiskais centrs","UNESCO Pasaules mantojuma objekts, kas apliecina Rīgas senumu un daudzveidību."],
+["c","Vieta","2023","Kuldīgas vecpilsēta","UNESCO Pasaules mantojuma objekts, kas apvieno vēsturisku apbūvi un dzīvu kopienu."],
+["c","Tradīcija","","Lībieši","Latvijas pamatiedzīvotāji; Lībiešu krasts un lībiešu valoda atgādina par cieņu pret mazākumā esošu kultūru."],
+["c","Dokuments","2012","Latgaliešu rakstu valoda","Latgaliešu rakstu valodas likums apliecina latgaliešu valodas vērtību Latvijas kultūrā."],
+["c","Vieta","","Aglonas bazilika","Latvijas katoļu garīgais centrs un svētceļojumu vieta; 15. augusta svētki pulcē tūkstošiem."],
+["c","Vieta","1211","Rīgas Doms","Baltijas lielākā viduslaiku baznīca, kuras pamatakmens likts 1211. gadā."],
+["c","Simbols","","Latviešu valoda","Viena no divām dzīvajām baltu valodām – mūsu kopīgais mantojums un ikdienas saruna."],
+["c","Simbols","","Baltā cielava","Latvijas nacionālais putns – klusa un graciozi vērojama dabas daļa."],
+["c","Simbols","","Dzintars","„Baltijas zelts” – senais dabas dārgums, ar ko Latvija pazīstama jau tūkstošiem gadu."],
+["c","Simbols","","Ozols un liepa","Tautasdziesmās un pasaulē apdziedātie koki; saistīti ar vīrišķo un sievišķo sākumu."],
+["c","Tradīcija","","Rupjmaize","Mājas, darba un viesmīlības simbols latviešu galdā."],
+["c","Tradīcija","","Goda sardze pie Brīvības pieminekļa","Cieņas apliecinājums brīvības cīnītājiem un valstij."],
+["c","Persona","1866–1916","Jānis Rozentāls","Gleznotājs, viens no latviešu profesionālās glezniecības pamatlicējiem."],
+
+/* ============ PATRIOTISMS ============ */
+["p","Notikums","1918","18. novembris","Tautas padome Rīgas pilsētas 2. teātrī (tagad Nacionālais teātris) pasludināja Latvijas valsti."],
+["p","Simbols","1935","Brīvības piemineklis","Kārļa Zāles veidotais piemineklis ar uzrakstu „Tēvzemei un Brīvībai”, atklāts 1935. gada 18. novembrī."],
+["p","Simbols","","Latvijas karogs","Tumši sarkans ar baltu joslu – karogs, kas pieminēts jau viduslaiku hronikā; valsts karogs kopš 1921. gada."],
+["p","Simbols","1921","Latvijas ģerbonis","Valsts ģerbonis ar trim zvaigznēm, kas simbolizē Vidzemi, Latgali un Kurzemi ar Zemgali (autors Rihards Zariņš)."],
+["p","Simbols","1873","„Dievs, svētī Latviju!”","Kārļa Baumaņa sacerētā dziesma; valsts himna kopš 1920. gada, atjaunota 1990. gadā."],
+["p","Notikums","1918–1920","Latvijas Brīvības cīņas","Karš par neatkarību pret Bermonta, Landesvēra un boļševiku spēkiem."],
+["p","Tradīcija","11. novembris","Lāčplēša diena","Brīvības cīnītāju atceres diena, kad piemin 1919. gada uzvaru pār Bermonta karaspēku Rīgā."],
+["p","Artefakts","1888","Lāčplēsis","Andreja Pumpura latviešu tautas eposs par varoni, kas uzvar tumsas spēkus."],
+["p","Notikums","1915–1917","Latviešu strēlnieki","Latviešu strēlnieku pulki un Ziemassvētku kaujas 1916.–1917. gadā – nacionālās apziņas pamats."],
+["p","Persona","1837–1875","Atis Kronvalds","Jaunlatviešu ideologs, darbs „Nacionālie jautājumi” (1872)."],
+["p","Persona","1825–1891","Krišjānis Valdemārs","Jaunlatviešu līderis un Ainažu Jūrskolas dibinātājs (1864)."],
+["p","Persona","1832–1864","Juris Alunāns","Dzejnieks un valodnieks, kas pauda ticību latviešu valodas daiļumam; krājums „Dziesmiņas” (1856)."],
+["p","Notikums","1873","Pirmie Vispārējie latviešu dziesmu svētki","Rīgā notikušie pirmie dziesmu svētki, kas kļuva par nācijas kopības zīmi."],
+["p","Tradīcija","2008","Dziesmu un deju svētki UNESCO sarakstā","Baltijas dziesmu un deju svētki ierakstīti UNESCO nemateriālā kultūras mantojuma sarakstā."],
+["p","Notikums","1987","Helsinki-86 un 14. jūnija ziedi","1987. gada 14. jūnijā cilvēki pie Brīvības pieminekļa nolika ziedus – drosmes zīme Atmodas laikā."],
+["p","Artefakts","1988","Rokopera „Lāčplēsis”","Zigmara Liepiņa un Māras Zālītes rokopera, kas kļuva par Atmodas laika simbolu."],
+["p","Persona","1904–1996","Jānis Daliņš","Pirmais Latvijas olimpiskais medaļnieks – sudrabs soļošanā Losandželosā 1932. gadā."],
+["p","Persona","1936–1992","Mihails Tāls","Rīgā dzimušais šaha čempions, pasaules čempions 1960. gadā."],
+["p","Notikums","1935","Eiropas basketbola čempioni","Latvijas vīriešu izlase 1935. gadā uzvarēja pirmajā Eiropas čempionātā Ženēvā."],
+["p","Notikums","2023","Pasaules kausa bronza basketbolā","Latvija 2023. gadā izcīnīja bronzu FIBA Pasaules kausā."],
+["p","Notikums","2023","Hokeja izlases bronza","Latvijas izlase 2023. gadā izcīnīja bronzu pasaules čempionātā hokejā."],
+["p","Notikums","2002","Marie N uzvara Eirovīzijā","Latvija ar dziesmu „I Wanna” uzvarēja Eirovīzijas dziesmu konkursā 2002. gadā."],
+["p","Artefakts","1938","Minox kamera","Rīgā radītā miniatūrā fotokamera, kuru VEF sāka ražot 1938. gadā."],
+["p","Persona","1904–1993","Kārlis Irbītis","Lidmašīnu konstruktors, VEF I-16 radītājs (1939) – latviešu inženierijas lepnums."],
+["p","Vieta","","Daugava","Likteņupe – Latvijas lielākā upe, kas Latvijā tek 352 km."],
+["p","Notikums","2018","Latvijas simtgade","Simtgades svinības, kas visā pasaulē apvienoja latviešus un Latvijas draugus."],
+["p","Persona","1887–1933","Frīdrihs Canders","Rīgā dzimušais kosmonautikas un raķešu tehnikas pionieris."],
+
+/* ============ SADARBĪBA ============ */
+["s","Notikums","1918","Tautas padome","Partiju un organizāciju pārstāvju apvienība, kas 1918. gada 17. novembrī izveidoja valsts pamatus."],
+["s","Notikums","1919","Cēsu kauja","Latviešu un igauņu karaspēka kopīga uzvara 1919. gada jūnijā."],
+["s","Notikums","1921","Latvijas atzīšana de jure","Sabiedroto atzīšana 1921. gadā un uzņemšana Tautu Savienībā – diplomātijas panākums."],
+["s","Persona","1887–1925","Zigfrīds Anna Meierovics","Pirmais ārlietu ministrs, kurš veidoja Latvijas ārpolitiku un attiecības ar kaimiņiem."],
+["s","Notikums","1988","Latvijas Tautas fronte","Atmodas laika kustība, kas apvienoja dažādu pārliecību cilvēkus ceļā uz neatkarību."],
+["s","Notikums","1989","Baltijas ceļš","23. augustā ap 2 miljoni cilvēku sadevās rokās ~675 km garā ķēdē no Tallinas līdz Viļņai."],
+["s","Notikums","1991","Barikādes","1991. gada janvārī tūkstošiem cilvēku pulcējās, lai sargātu valsts iestādes un neatkarību."],
+["s","Institūcija","1991","Baltijas Asambleja","Baltijas valstu parlamentu sadarbības forums."],
+["s","Notikums","2004","Iestāšanās Eiropas Savienībā","Latvija 2004. gada 1. maijā kļuva par ES dalībvalsti."],
+["s","Notikums","2006","NATO samits Rīgā","Alianses valstu vadītāji sanāca Rīgā 2006. gada novembrī."],
+["s","Notikums","2015","ES prezidentūra","Latvija pirmo reizi vadīja Eiropas Savienības Padomi 2015. gada pirmajā pusē."],
+["s","Notikums","2025","Elektrotīklu sinhronizācija","Baltijas valstis 2025. gada februārī pievienojās Kontinentālās Eiropas elektrotīklam."],
+["s","Objekts","","Rail Baltica","Baltijas valstu kopīgs dzelzceļa projekts, kas savieno Baltiju ar Eiropu."],
+["s","Tradīcija","","Lielā Talka","Ikgadēja sakopšanas akcija, kurā brīvprātīgie kopā tīra mežus un pļavas."],
+["s","Tradīcija","","Baltā galdauta svētki","Ap 4. maiju cilvēki kopā klāj baltus galdautus un svin neatkarības atjaunošanu."],
+["s","Notikums","2012","Grāmatu ķēde","Tūkstošiem cilvēku sniedza grāmatas rokās, pārnesot tās uz jauno Latvijas Nacionālo bibliotēku – Gaismas pili."],
+["s","Vieta","","Likteņdārzs","Piemiņas un nākotnes dārzs Kokneses novadā, veidots ar iedzīvotāju atbalstu."],
+["s","Vieta","1955","Mežaparka Lielā estrāde","Dziesmu svētku centrs, kur kopā dzied tūkstošiem dziedātāju."],
+["s","Institūcija","1955","Pasaules brīvo latviešu apvienība","Diasporas organizācija, kas saista latviešus visā pasaulē."],
+["s","Tradīcija","","Latviešu skolas ārzemēs","Sestdienas un svētdienas skolas diasporā, kas glabā valodu un tradīcijas."],
+["s","Institūcija","1868","Rīgas Latviešu biedrība","Pirmā latviešu biedrība, kas veicināja kultūru, izglītību un nacionālo kopību."],
+["s","Vieta","2005","Struves ģeodēziskais loks","Desmit valstu kopīgs UNESCO objekts, kas atspoguļo zinātnisku sadarbību."],
+["s","Tradīcija","","Jāņi","Vasaras saulgrieži – dziedāšana, kopīgs galds un kopā būšana."],
+["s","Institūcija","1929","Mazpulki","Jauniešu organizācija, kurā mācās strādāt un rīkoties kopā; devīze „Čakli, čakli”."],
+["s","Tradīcija","","Ziedot.lv","Ziedojumu platforma, kas apvieno tūkstošiem cilvēku, lai palīdzētu citiem."],
+["s","Tradīcija","1510","Rīgas Ziemassvētku egle","Rīga uzskata, ka 1510. gadā tur svinēta pirmā greznotā egle."],
+["s","Vieta","1930","Rīgas Centrāltirgus","Kopīgais tirgus, kas pulcē pārdevējus un pircējus jau gadu desmitiem."]
+];
+
+const CAT_NAMES = {a:"Atbildība", c:"Cieņa", p:"Patriotisms", s:"Sadarbība"};
+
+/* Pārbaude */
+console.assert(ITEMS.length === 108, "Ierakstu skaits nav 108: " + ITEMS.length);
+
+const grid = document.getElementById("grid");
+const search = document.getElementById("search");
+const countEl = document.getElementById("count");
+const chips = document.querySelectorAll(".chip");
+let currentFilter = "all";
+
+/* Sagatavo kartes */
+const cards = ITEMS.map((it, i) => {
+  const [cat, type, year, title, text] = it;
+  const el = document.createElement("article");
+  el.className = "card";
+  el.dataset.cat = cat;
+  el.id = "v" + (i + 1);
+  el.dataset.search = (title + " " + text + " " + type + " " + year + " " + CAT_NAMES[cat]).toLowerCase();
+  el.innerHTML =
+    '<div class="top"><span class="num">' + (i + 1) + '</span><span class="year">' + (year || "") + '</span></div>' +
+    '<h3></h3>' +
+    '<p></p>';
+  el.querySelector("h3").textContent = title;
+  el.querySelector("p").textContent = text;
+  grid.appendChild(el);
+  return el;
+});
+
+const emptyEl = document.createElement("p");
+emptyEl.className = "empty";
+emptyEl.textContent = "Nekas netika atrasts. Pamēģiniet citu atslēgvārdu.";
+emptyEl.hidden = true;
+grid.appendChild(emptyEl);
+
+function apply(){
+  const q = search.value.trim().toLowerCase();
+  let shown = 0;
+  cards.forEach(c => {
+    const okCat = currentFilter === "all" || c.dataset.cat === currentFilter;
+    const okQ = !q || c.dataset.search.includes(q);
+    const vis = okCat && okQ;
+    c.hidden = !vis;
+    if (vis) shown++;
+  });
+  emptyEl.hidden = shown !== 0;
+  countEl.textContent = "Rāda " + shown + " no 108";
+}
+
+function setFilter(f){
+  currentFilter = f;
+  chips.forEach(ch => ch.setAttribute("aria-pressed", ch.dataset.filter === f ? "true" : "false"));
+  apply();
+}
+
+chips.forEach(ch => ch.addEventListener("click", () => setFilter(ch.dataset.filter)));
+search.addEventListener("input", apply);
+
+document.querySelectorAll(".pillar").forEach(p => {
+  p.addEventListener("click", () => {
+    setFilter(p.dataset.cat);
+    document.querySelector(".controls").scrollIntoView({behavior:"smooth", block:"start"});
+  });
+});
+
+document.getElementById("rand").addEventListener("click", () => {
+  search.value = "";
+  setFilter("all");
+  const c = cards[Math.floor(Math.random() * cards.length)];
+  c.scrollIntoView({behavior:"smooth", block:"center"});
+  c.classList.remove("flash");
+  void c.offsetWidth;
+  c.classList.add("flash");
+});
+
+apply();
+</script>
+</body>
+</html>
